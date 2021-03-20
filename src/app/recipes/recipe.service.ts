@@ -9,30 +9,37 @@ import { Recipe } from './recipe.model';
 })
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
-  recipes: Recipe[] = [
-    new Recipe(
-      'a test recipe',
-      'this is a test',
-      'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
-      [
-        new Ingredient('meat', 1),
-        new Ingredient('garlic', 2),
-        new Ingredient('oil', 1),
-      ]
-    ),
-    new Recipe(
-      'a new test recipe',
-      'this is a test',
-      'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
-      [
-        new Ingredient('mozarela', 4),
-        new Ingredient('salami', 2),
-        new Ingredient('peperoni', 3),
-      ]
-    ),
-  ];
+  recipes: Recipe[] = [];
+
+  //   recipes: Recipe[] = [
+  //     new Recipe(
+  //       'a test recipe',
+  //       'this is a test',
+  //       'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
+  //       [
+  //         new Ingredient('meat', 1),
+  //         new Ingredient('garlic', 2),
+  //         new Ingredient('oil', 1),
+  //       ]
+  //     ),
+  //     new Recipe(
+  //       'a new test recipe',
+  //       'this is a test',
+  //       'https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg',
+  //       [
+  //         new Ingredient('mozarela', 4),
+  //         new Ingredient('salami', 2),
+  //         new Ingredient('peperoni', 3),
+  //       ]
+  //     ),
+  //   ];
 
   constructor(private slService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
     return this.recipes.slice();
